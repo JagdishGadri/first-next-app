@@ -4,7 +4,6 @@ import styles from "./event-list.module.css";
 
 function EventList(props) {
   const { items } = props;
-  console.log("items in eventlist", items);
   return (
     <ul className={styles.list}>
       {items.map((event) => (
