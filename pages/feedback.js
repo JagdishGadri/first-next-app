@@ -1,15 +1,27 @@
-import React from "react";
-import { buildFeedbackPath, extractFeedbackData } from "./api/feedback";
+import React, { Fragment, useState } from "react";
+import { buildFeedbackPath, extractFeedbackData } from "./api/feedback/index";
 
 function FeedbackPage(props) {
+  const [feedbackData, setFeedbackData] = useState();
+  function handleDetailView(id) {
+    fetch(`api/feedback/${id}`)
+      .then((res) => res.json())
+      .then((data) => setFeedbackData(data.feedback));
+  }
   return (
-    <div>
+    <Fragment>
+      {feedbackData && <>{feedbackData.email}</>}
       <ul>
         {props.feedbackData.map((item) => (
-          <li>{item.feedback}</li>
+          <li key={item.id}>
+            {item.feedback}
+            <button onClick={handleDetailView.bind(null, item.id)}>
+              Show more Details
+            </button>
+          </li>
         ))}
       </ul>
-    </div>
+    </Fragment>
   );
 }
 
