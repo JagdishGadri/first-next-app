@@ -6,6 +6,17 @@
 2. Authentication App (branch: authentication)
 3. Feedback-Form App (branch: backend-with-api-routes)
 
+The Events app is built by creating different branch for each functionality implemented in the app.
+i.e., first the "file-based-routing" is created, then the "serverside-rendering-in-events-app" is created to implement server side rendering in the existing app. 
+
+Here is the whole map of project's all branches in progressive order: 
+>file-based-routing-project
+>>serverside-rendering-in-events-app
+>>>using-api-routes-in-events-app
+
+So, You can access the basic app in "file-based-routing-project" branch and full-fledged(so called!) app in "using-api-routes-in-events-app" branch.
+                                                                    
+
 ## Getting Started
 
 First, run the development server:
