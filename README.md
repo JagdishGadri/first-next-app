@@ -28,9 +28,12 @@ yarn dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Note:
-If you face ERR_PACKAGE_PATH_NOT_EXPORTED error, try installing latest stable node version with "nvm install --lts" command before starting devlopment server.
+## Note:
+If you face ERR_PACKAGE_PATH_NOT_EXPORTED error, try installing latest stable node version using given command before starting devlopment server.
 
+```bash
+nvm install --lts
+```
 
 
 
