@@ -1,9 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project. 
+## This is a [Next.js](https://nextjs.org/) project. 
 
-This repository contains 3 independent [Next.js] Projects. 
-1.Events App (branch: using-api-routes-in-events-app)
-2.Authentication App (branch: authentication)
-3.Feedback-Form App (branch: backend-with-api-routes)
+##This repository contains 3 independent [Next.js] Projects. 
+
+1. Events App (branch: using-api-routes-in-events-app)
+2. Authentication App (branch: authentication)
+3. Feedback-Form App (branch: backend-with-api-routes)
 
 ## Getting Started
 
