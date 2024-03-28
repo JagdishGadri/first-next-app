@@ -24,3 +24,7 @@
 ![Independent rooute handling](image-31.png)
 ![slot benifit: Independent route handling](image-29.png)
 ![slot benefit: Sub navigation](image-32.png)
+![Unmatched Routes](image-33.png)
+![Intercepting routes](image-34.png)
+![Intercepting example](image-35.png)
+![Intercepting route convention](image-36.png)
