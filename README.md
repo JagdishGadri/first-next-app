@@ -1,3 +1,9 @@
+## Abhishek Chandarana Session:
+
+![alt text](image-52.png)
+![alt text](<Screenshot from 2024-04-10 17-28-00.png>)
+![alt text](<Screenshot from 2024-04-10 17-57-36.png>)
+
 ![Routing Convention](image.png)
 ![Nested dynamic routes](image-1.png)
 ![Catch-All-1](image-2.png)
