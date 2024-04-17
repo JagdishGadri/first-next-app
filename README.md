@@ -6,7 +6,7 @@
 
 # Codevolution Notes
 
-[Routing Convention]
+[Routing Convention](#routing-convention)
 
 ![Routing Convention](image.png)
 ![Nested dynamic routes](image-1.png)
@@ -65,5 +65,5 @@ Streaming: ![Streaming](image-66.png)
 ## Routing Convention
 
 <p>
-  <img src="images/image.png">
+  <img src="images/image-1.png" style="width: 640px">
 </p>
