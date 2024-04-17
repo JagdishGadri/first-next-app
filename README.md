@@ -4,6 +4,10 @@
 ![alt text](<Screenshot from 2024-04-10 17-28-00.png>)
 ![alt text](<Screenshot from 2024-04-10 17-57-36.png>)
 
+# Codevolution Notes
+
+## Routing Convention
+
 ![Routing Convention](image.png)
 ![Nested dynamic routes](image-1.png)
 ![Catch-All-1](image-2.png)
@@ -45,3 +49,17 @@ Cookies: ![alt text](image-46.png)
 2 ways to Set Cookies: ![alt text](image-47.png) ![alt text](image-48.png)
 Caching: ![alt text](image-49.png)
 Stop Caching:![alt text](image-51.png) ![alt text](image-50.png)
+Middleware: ![Middleware](image-53.png)
+Middleware example: ![Middleware example](image-54.png)
+Drawbacks of SSR: ![First Drawback](image-55.png) ![Second Drawback](image-56.png) ![Third Drawback](image-57.png)
+Solution to these DrawBacks: ![Suspence SSR Architecture](image-58.png)
+React Server Components: ![RSC](image-59.png)
+RSC Key Takeaways![RSC Key Takeaways](image-60.png)
+RSC Loading Sequence: ![RSC Loading Sequence](image-61.png)
+RSC Updating Sequence![RSC Updating Sequence](image-62.png)
+Server Rendering Strategy: ![Server Rendering Strategy](image-63.png)
+Static Rendering :![Static Rendering](image-64.png)
+Dynamic Rendering : ![Dynamic Rendering](image-65.png)
+Streaming: ![Streaming](image-66.png)
+
+![Routing Convention](image.png)
