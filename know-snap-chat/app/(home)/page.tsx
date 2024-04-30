@@ -1,10 +1,12 @@
+import { auth } from "@/auth";
 import Navbar from "@/components/shared/navbar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function HomePage() {
+async function HomePage() {
+  const session = await auth();
   return (
     <main className="bg-[#fffc00]">
       <div className="min-h-screen flex flex-col items-center justify-center max-w-7xl mx-auto">
@@ -23,22 +25,7 @@ function HomePage() {
                 What are you waiting for?
               </p>
             </div>
-            {true ? (
-              <Button
-                asChild
-                className="mt-4 bg-black text-white flex items-center rounded-lg gap-2 mx-auto md:mx-0"
-              >
-                <Link href={"/login"} className="max-w-max">
-                  <Image
-                    src="/logo.svg"
-                    width={20}
-                    height={20}
-                    alt="Snapchat logo"
-                  />
-                  Log in to explore
-                </Link>
-              </Button>
-            ) : (
+            {session ? (
               <Button
                 asChild
                 className="mt-4 bg-black text-white flex items-center rounded-lg gap-2 mx-auto md:mx-0"
@@ -51,6 +38,21 @@ function HomePage() {
                     alt="Snapchat logo"
                   />
                   Start chatting
+                </Link>
+              </Button>
+            ) : (
+              <Button
+                asChild
+                className="mt-4 bg-black text-white flex items-center rounded-lg gap-2 mx-auto md:mx-0"
+              >
+                <Link href={"/login"} className="max-w-max">
+                  <Image
+                    src="/logo.svg"
+                    width={20}
+                    height={20}
+                    alt="Snapchat logo"
+                  />
+                  Log in to explore
                 </Link>
               </Button>
             )}

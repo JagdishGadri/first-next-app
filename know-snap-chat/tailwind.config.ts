@@ -89,6 +89,7 @@ const config = {
         sigSurface: "#1e1e1e",
       },
       backgroundImage: {
+        // "auth-layout": "bg-gradient-to-r from-slate-500 to-yellow-100",
         "hero-pattern": "url('/grainy.png')",
         chat: "url('/snapbg.png')",
         "auth-layout": "url('/noise.svg')",
