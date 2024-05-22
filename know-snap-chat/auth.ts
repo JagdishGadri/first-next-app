@@ -12,6 +12,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   secret: process.env.AUTH_SECRET,
   callbacks: {
+    async session({ session }) {
+      try {
+        await connectToMongoDB();
+        if (session.user) {
+          const currentLoggedInUser = await User.findOne({
+            email: session?.user?.email,
+          });
+          if (currentLoggedInUser) {
+            session.user._id = currentLoggedInUser?._id;
+            return session;
+          } else {
+            throw new Error("User not found in db");
+          }
+        } else {
+          throw new Error("Invalid Session");
+        }
+      } catch (error) {
+        console.log(error);
+        throw new Error("Invalid Session");
+      }
+    },
     async jwt({ token, account, profile }) {
       // Persist the OAuth access_token and or the user id to the token right after signin
       if (account) {
