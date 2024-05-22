@@ -4,9 +4,11 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { auth } from "@/auth";
+import ChatUserList from "./chat-user-list";
 
 const ChatSideBar = async () => {
   const session = await auth();
+
   return (
     <aside className="flex-[1_1_0%] flex flex-col bg-black text-white">
       <div className="sticky top-0 bg-black z-50">
@@ -32,6 +34,7 @@ const ChatSideBar = async () => {
           </div>
         </div>
       </div>
+      <ChatUserList />
     </aside>
   );
 };
