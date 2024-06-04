@@ -17,7 +17,7 @@ function LoginButton() {
 }
 
 export default function LoginCard() {
-  const [errorMessage, dispatch] = useFormState(authAction, '');
+  const [errorMessage, dispatch] = useFormState(authAction, null);
 
   return (
     <>
