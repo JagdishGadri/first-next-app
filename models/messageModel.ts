@@ -1,11 +1,11 @@
-import mongoose, { Model, PopulatedDoc, Schema, Types } from "mongoose";
-import { IUserDocument } from "./userModel";
+import mongoose, { Model, PopulatedDoc, Schema, Types } from 'mongoose';
+import { IUserDocument } from './userModel';
 
 interface IMessage {
   sender: Types.ObjectId | PopulatedDoc<IUserDocument>;
   receiver: Types.ObjectId | PopulatedDoc<IUserDocument>;
   content: string;
-  messageType: "image" | "text";
+  messageType: 'image' | 'text';
   isOpened: boolean;
 }
 
@@ -18,32 +18,32 @@ const messageSchema = new mongoose.Schema<IMessageDocument>(
   {
     sender: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      ref: 'User',
+      required: true
     },
     receiver: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      ref: 'User',
+      required: true
     },
     content: {
       type: String,
-      required: true,
+      required: true
     },
     messageType: {
       type: String,
       required: true,
-      enum: ["image", "text"],
+      enum: ['image', 'text']
     },
     isOpened: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   { timestamps: true }
 );
 
 const Message: Model<IMessageDocument> =
-  mongoose.models?.Message || mongoose.model("Message", messageSchema);
+  mongoose.models?.Message || mongoose.model('Message', messageSchema);
 
 export default Message;

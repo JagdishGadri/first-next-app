@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from "mongoose";
+import mongoose, { Document, Model } from 'mongoose';
 
 export interface IUser {
   username: string;
@@ -17,29 +17,29 @@ const userSchema = new mongoose.Schema<IUserDocument>(
     username: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     fullName: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     avatar: {
       type: String,
-      default: "",
-    },
+      default: ''
+    }
   },
   {
     // createdAt, updatedAt
-    timestamps: true,
+    timestamps: true
   }
 );
 
 const User: Model<IUserDocument> =
-  mongoose.models?.User || mongoose.model("User", userSchema);
+  mongoose.models?.User || mongoose.model('User', userSchema);
 
 export default User;

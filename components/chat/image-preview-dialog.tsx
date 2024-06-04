@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogClose
 } from '@/components/ui/dialog';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 
 interface ImagePreviewDialogProps {
   selectedFile: string | undefined;

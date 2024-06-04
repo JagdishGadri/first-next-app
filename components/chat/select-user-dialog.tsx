@@ -7,10 +7,7 @@ import {
   DialogHeader
 } from '../ui/dialog';
 import { Button } from '../ui/button';
-// import { TextMessageSent } from "../svgs/chatSvg";
 import UserCard from './user-card';
-// import { Dialog } from "../ui/dialog";
-// import UserCard from "./user-card";
 
 type SelectUserDialogProps = {
   selectedFile: string | undefined;

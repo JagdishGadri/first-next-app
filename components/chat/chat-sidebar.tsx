@@ -1,11 +1,11 @@
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import LogoutButton from '../shared/logout-button';
-import { Avatar, AvatarImage } from '../ui/avatar';
-import { Button } from '../ui/button';
+import LogoutButton from '@/components/shared/logout-button';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 import ChatUserList from './chat-user-list';
-import heroPng from '../../public/hero.png';
+import heroPng from '@/public/hero.png';
 
 async function ChatSideBar() {
   const session = await auth();
