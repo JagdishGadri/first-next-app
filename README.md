@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Snap Next App
 
-First, run the development server:
+### Description :
+* Chat application developed using NextJS framework.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### TechStacks Used:
+* NextJs, NextAuth, Mongoose
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Hosted App URL: https://first-next-i0fslz4p6-jagdishgadris-projects.vercel.app/
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Issues Faced During Development
+* [Type error while generating build](#type-error-while-generating-build)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Type error while generating build
 
-## Learn More
+### Error:
 
-To learn more about Next.js, take a look at the following resources:
+While using `next-auth@5.0.0-beta.17`, faced the following error:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+./node_modules/@auth/core/lib/utils/cookie.d.ts:1:45
+Type error: Module '"../../types.js"' has no exported member 'RequestInternal'.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1 | import type { CookieOption, LoggerInstance, RequestInternal } from "../../types.js";
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Resolution Steps:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Tried to uninstall the package and install it again.
+2. Added the `type/next-auth.d.ts` file to the `files` property of `tsconfig.json` but it didn't work.
+3. Went through the issue threads in NextAuth's GitHub repo.
+   - Found one issue similar to mine but the solution wasn't available there, so messaged in the thread.
+4. Tried to use the stable version of `next-auth` - `4.23.0`.
+   - Got another type error in `openid-client` while generating the build due to `middleware.ts`.
+   - Resolved that error by changing the exported function from `middleware.ts`.
+   - Still, it didn't work as there were many changes required before migrating to this version.
+5. Finally, moved `next-auth` version back to `5.0.0-beta.17` and added the `ignoreBuildErrors` flag as `true` in the `nextConfig.typescript` property as a workaround.
+
+
+
+
+
+
+
+
+
