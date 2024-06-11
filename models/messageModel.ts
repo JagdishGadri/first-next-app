@@ -9,7 +9,7 @@ interface IMessage {
   isOpened: boolean;
 }
 
-interface IMessageDocument extends IMessage, Document {
+export interface IMessageDocument extends IMessage, Document {
   createdAt: Date;
   updatedAt: Date;
 }

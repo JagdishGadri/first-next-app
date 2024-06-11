@@ -1,14 +1,22 @@
+'use client';
+import { IUserDocument } from '@/models/userModel';
 import { Avatar, AvatarImage } from '../ui/avatar';
+import { useRouter } from 'next/navigation';
 
-function UserCard() {
+function UserCard({ userDetails }: { userDetails: IUserDocument }) {
+  const router = useRouter();
+
   return (
     <div
       className={`flex items-center gap-2 border-b border-b-sigColorBgBorder p-1 hover:bg-sigBackgroundFeedHover cursor-pointer `}
+      onClick={() => {
+        router.push(`/chat/${userDetails._id}`);
+      }}
     >
       <Avatar className="cursor-pointer hover:bg-sigBackgroundSecondaryHover">
-        <AvatarImage src="https://questhowth.ie/wp-content/uploads/2018/04/user-placeholder.png" />
+        <AvatarImage src={userDetails.avatar} />
       </Avatar>
-      <span>John Doe</span>
+      <span>{userDetails?.fullName}</span>
     </div>
   );
 }

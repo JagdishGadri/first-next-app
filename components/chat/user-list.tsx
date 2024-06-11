@@ -6,10 +6,11 @@ import { getUsersForSidebar } from '@/lib/data';
 async function ChatUserList() {
   const session = await auth();
   const users = session?.user ? await getUsersForSidebar(session.user._id) : [];
-  console.log('users', users);
   return (
     <div>
-      <UserCard />
+      {users?.map((user) => {
+        return <UserCard key={user._id} userDetails={user} />;
+      })}
     </div>
   );
 }

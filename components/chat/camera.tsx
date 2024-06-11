@@ -22,6 +22,7 @@ function ChatCamera() {
   };
 
   const closeDialog = () => {
+    console.log('closed');
     setSelectedFile('');
     setStep(0);
   };

@@ -1,4 +1,4 @@
-import ChatSideBar from '@/components/chat/chat-sidebar';
+import ChatSideBar from '@/components/chat/sidebar';
 
 function Layout({ children }: React.PropsWithChildren) {
   return (

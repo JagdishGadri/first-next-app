@@ -4,8 +4,9 @@ import LogoutButton from '@/components/shared/logout-button';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
-import ChatUserList from './chat-user-list';
+import ChatUserList from './user-list';
 import heroPng from '@/public/hero.png';
+import { Suspense } from 'react';
 
 async function ChatSideBar() {
   const session = await auth();
@@ -39,7 +40,9 @@ async function ChatSideBar() {
           </div>
         </div>
       </div>
-      <ChatUserList />
+      <Suspense fallback={<div>Loading</div>}>
+        <ChatUserList />
+      </Suspense>
     </aside>
   );
 }

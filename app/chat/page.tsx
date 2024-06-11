@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import ChatCamera from '@/components/chat/chat-camera';
+import ChatCamera from '@/components/chat/camera';
 
 function Chat() {
   return (
