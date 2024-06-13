@@ -1,35 +1,33 @@
-// 'use client';
-import React, { Suspense } from 'react';
+'use client';
+import React, { useCallback, useEffect, useState } from 'react';
 import UserCard from './user-card';
-import { auth } from '@/auth';
-import { getUsersForSidebar } from '@/lib/data';
-import { ChatsSkeleton } from '../skeletons/chat-skeleton';
-import UserSearch from './user-search';
+import { IUserDocument } from '@/models/userModel';
+import { useSearchParams } from 'next/navigation';
 
-// const sleep = (wait: number) =>
-//   new Promise((resolve) => setTimeout(() => resolve(''), wait));
+function ChatUsersList() {
+  const [userList, setUserList] = useState<IUserDocument[]>([]);
+  const searchParams = useSearchParams();
+  const getUsersList = useCallback(async () => {
+    try {
+      const res = await fetch(
+        `api/users?userSearch=${searchParams.get('userSearch')}`
+      );
+      const userList = await res.json();
+      setUserList(userList);
+    } catch (err) {
+      throw err;
+    }
+  }, [searchParams]);
+  useEffect(() => {
+    getUsersList();
+  }, [getUsersList]);
 
-async function ChatUsers() {
-  const session = await auth();
-  const users = session?.user ? await getUsersForSidebar(session.user._id) : [];
   return (
     <div>
-      {users?.map((user) => {
+      {userList?.map((user) => {
         return <UserCard key={user._id} userDetails={user} />;
       })}
     </div>
   );
 }
-
-async function ChatUserList() {
-  return (
-    <>
-      <UserSearch />
-      <Suspense fallback={<ChatsSkeleton />}>
-        <ChatUsers />
-      </Suspense>
-    </>
-  );
-}
-
-export default ChatUserList;
+export default ChatUsersList;

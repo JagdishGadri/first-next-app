@@ -10,7 +10,6 @@ export async function connectToMongoDB() {
   // try {
   const conn = await mongoose.connect(process.env.MONGODB_URI as string);
   cachedConnection = conn.connection;
-
   // console.log('New mongodb connection established');
   return cachedConnection;
   // } catch (error) {

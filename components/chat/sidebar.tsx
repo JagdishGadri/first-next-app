@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 import ChatUserList from './user-list';
 import heroPng from '@/public/hero.png';
+import UserSearch from './user-search';
 
 async function ChatSideBar() {
   const session = await auth();
@@ -28,6 +29,7 @@ async function ChatSideBar() {
           <LogoutButton />
         </div>
       </div>
+      <UserSearch />
       <ChatUserList />
     </aside>
   );

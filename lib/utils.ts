@@ -14,3 +14,16 @@ export const readFileAsDataURL = (file: File | Blob): Promise<string> => {
     reader.readAsDataURL(file);
   });
 };
+
+export const debounce = function <T extends (...args: unknown[]) => unknown>(
+  originalFun: T,
+  delay: number
+) {
+  let timerId: NodeJS.Timeout;
+  return function (...args: Parameters<T>) {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      originalFun.apply(this, args);
+    }, delay);
+  };
+};

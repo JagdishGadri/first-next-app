@@ -1,4 +1,5 @@
 'use client';
+import { debounce } from '@/lib/utils';
 import { SearchIcon } from 'lucide-react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import React, { useCallback } from 'react';
@@ -18,6 +19,12 @@ function UserSearch() {
     [searchParams]
   );
 
+  const searchHandler = (searchQuery = '') => {
+    router.push(pathname + '?' + createQueryString('userSearch', searchQuery));
+  };
+
+  const searchDebounce = debounce(searchHandler, 2000);
+
   return (
     <div className="p-4">
       <div className=" text-gray-400 p-1  flex gap-2 rounded-full bg-sigSurface border border-sigColorBgBorder">
@@ -26,11 +33,7 @@ function UserSearch() {
           className="bg-transparent border-none text-white placeholder-gray-400 focus:outline-none"
           placeholder="Search"
           type="text"
-          onChange={(e) => {
-            router.push(
-              pathname + '?' + createQueryString('userSearch', e.target.value)
-            );
-          }}
+          onChange={(e) => searchDebounce(e.target.value)}
         />
       </div>
     </div>
