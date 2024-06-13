@@ -15,10 +15,29 @@ export const readFileAsDataURL = (file: File | Blob): Promise<string> => {
   });
 };
 
-export const debounce = function <T extends (...args: unknown[]) => unknown>(
+// export const debounce = function <T extends (...args: any[]) => any>(
+//   originalFun: T,
+//   delay: number
+// ) {
+//   let timerId: NodeJS.Timeout;
+//   return function (...args: Parameters<T>) {
+//     clearTimeout(timerId);
+//     timerId = setTimeout(() => {
+//       originalFun.apply(this, args);
+//     }, delay);
+//   };
+// };
+
+type Callback = (...args: unknown[]) => void;
+
+interface DebounceFunction<F extends Callback> {
+  (this: ThisParameterType<F>, ...args: Parameters<F>): void;
+}
+
+export const debounce = function <T extends Callback>(
   originalFun: T,
   delay: number
-) {
+): DebounceFunction<T> {
   let timerId: NodeJS.Timeout;
   return function (...args: Parameters<T>) {
     clearTimeout(timerId);
