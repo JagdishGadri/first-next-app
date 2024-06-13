@@ -1,28 +1,50 @@
 'use client';
 import { sendMessageAction } from '@/lib/actions';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import StickerPopover from './sticker-popover';
 
-type Props = { params: { recipientUserId: string } };
-
-function Input({ params }: Props) {
+function Input({ params }: { params: { recipientUserId: string } }) {
   const [messageContent, setMessageContent] = useState<string>('');
   const receiverId = params.recipientUserId;
+  const inputRef = useRef(null);
+
+  const openStickerPopOver = () => {};
   return (
     <>
-      <input
-        type="text"
-        className="border-b-sigColorBgBorder p-1 flex-1 px-4 py-2 border rounded focus:outline-none"
-        onBlur={(e) => setMessageContent(e.target.value)}
-      />
-      <button
-        onClick={async () => {
-          console.log({ messageContent });
-          await sendMessageAction(receiverId, messageContent, 'text');
-        }}
-        className="px-4 py-2 bg-gray-500 text-white font-semibold rounded border-b-sigColorBgBorder p-1 hover:bg-sigBackgroundFeedHover focus:outline-none focus:ring-2"
-      >
-        Send
-      </button>
+      <div className="p-1 flex gap-2 rounded-full  border-sigColorBgBorder border-b-sigColor bg-sigSurface BgBorder flex-1   border focus:outline-none ">
+        <div
+          className="self-center ml-2"
+          onClick={() => {
+            openStickerPopOver();
+          }}
+        >
+          <StickerPopover receiverId={receiverId} />
+        </div>
+        <input
+          type="text"
+          className=" text-gray-400  flex gap-2 rounded-full bg-sigSurface flex-1  focus:outline-none "
+          onBlur={(e) => setMessageContent(e.target.value)}
+          ref={inputRef}
+        />
+        <button
+          onClick={async () => {
+            try {
+              await sendMessageAction(receiverId, messageContent, 'text');
+              if (
+                inputRef.current &&
+                inputRef.current instanceof HTMLInputElement
+              ) {
+                inputRef.current.value = '';
+              }
+            } catch (err) {
+              throw err;
+            }
+          }}
+          className="rounded-full px-4 py-2 bg-gray-500 text-white font-semibold  border-b-sigColorBgBorder hover:bg-sigBackgroundFeedHover focus:outline-none focus:ring-2"
+        >
+          Send
+        </button>
+      </div>
     </>
   );
 }

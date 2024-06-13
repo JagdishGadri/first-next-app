@@ -9,7 +9,7 @@ async function HomePage() {
 
   return (
     <main className="bg-[#fffc00]">
-      <div className="min-h-screen flex flex-col items-center justify-center max-w-7xl mx-auto">
+      <div className="min-h-screen flex flex-col items-center justify-center max-w-7xl mx-auto ">
         <Navbar />
         <main className="flex flex-1 flex-col md:flex-row items-center justify-center px-8 mt-4">
           <div className="flex-1 md:text-left text-center h-full">

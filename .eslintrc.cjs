@@ -29,7 +29,11 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'react/require-default-props': 0,
-    '@typescript-eslint/ban-ts-comment': 0
+    '@typescript-eslint/ban-ts-comment': 0,
+    'no-console': 1,
+    // disabled as it is useful in react class component:
+    // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prop-types.md
+    'react/prop-types': 0
   },
   settings: {
     'import/resolver': {

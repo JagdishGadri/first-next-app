@@ -1,4 +1,3 @@
-import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import LogoutButton from '@/components/shared/logout-button';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
@@ -6,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 import ChatUserList from './user-list';
 import heroPng from '@/public/hero.png';
-import { Suspense } from 'react';
 
 async function ChatSideBar() {
   const session = await auth();
@@ -29,20 +27,8 @@ async function ChatSideBar() {
           </Button>
           <LogoutButton />
         </div>
-        <div className="p-4 ">
-          <div className=" text-gray-400 p-1  flex gap-2 rounded-full bg-sigSurface border border-sigColorBgBorder">
-            <SearchIcon className="text-gray-400 w-5" />
-            <input
-              className="bg-transparent border-none text-white placeholder-gray-400 focus:outline-none"
-              placeholder="Search"
-              type="text"
-            />
-          </div>
-        </div>
       </div>
-      <Suspense fallback={<div>Loading</div>}>
-        <ChatUserList />
-      </Suspense>
+      <ChatUserList />
     </aside>
   );
 }

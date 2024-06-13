@@ -6,9 +6,8 @@ import React from 'react';
 type Props = { userDetails: IUserDocument };
 
 function Header({ userDetails }: Props) {
-  console.log('userDetails', userDetails);
   return (
-    <div className="flex items-center">
+    <div className="flex items-center bg-sigSurface rounded-full mb-2 w-full">
       <Avatar className="cursor-pointer hover:bg-sigBackgroundSecondaryHover">
         <AvatarImage
           src={userDetails?.avatar ?? '/logo.png'}

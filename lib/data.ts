@@ -6,6 +6,7 @@ import { auth } from '@/auth';
 export const getUsersForSidebar = async (authUserId: string) => {
   try {
     await connectToMongoDB();
+
     const users = await User.find({
       _id: { $ne: authUserId }
     });

@@ -49,7 +49,6 @@ export const sendMessageAction = async (
     // revalidate  the path when new message is sent
     revalidatePath(`/chat/${receiverId}`);
   } catch (err) {
-    console.error('Error in sendMessage:', error.message);
     throw error;
   }
 };

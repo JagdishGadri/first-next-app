@@ -22,7 +22,6 @@ function ChatCamera() {
   };
 
   const closeDialog = () => {
-    console.log('closed');
     setSelectedFile('');
     setStep(0);
   };
@@ -34,7 +33,6 @@ function ChatCamera() {
           className="rounded-full p-8 bg-white-800 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-30 border border-gray-100 cursor-pointer"
           onClick={() => imgRef.current!.click()}
           onKeyDown={(e) => {
-            console.log('e.code', e.code);
             if (e.code === '65') imgRef.current!.click();
           }}
         >

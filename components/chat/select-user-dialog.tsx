@@ -20,7 +20,7 @@ function SelectUserDialog({
   onClose,
   onPrev
 }: SelectUserDialogProps) {
-  const handleSendMessage = () => console.log('message sent');
+  const handleSendMessage = () => {};
 
   return (
     <Dialog open={!!selectedFile}>
