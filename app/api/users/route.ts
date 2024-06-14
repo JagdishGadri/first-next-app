@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { auth } from '@/auth';
 import { connectToMongoDB } from '@/lib/db';
 import User from '@/models/userModel';
@@ -25,7 +27,6 @@ export async function GET(request: NextRequest) {
         }
       ]
     });
-
     return Response.json(users);
   } catch (err) {
     throw new Error('Could not get the user list');

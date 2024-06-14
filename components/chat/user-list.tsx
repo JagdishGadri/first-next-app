@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useCallback, useEffect, useState } from 'react';
 import UserCard from './user-card';
 import { IUserDocument } from '@/models/userModel';
