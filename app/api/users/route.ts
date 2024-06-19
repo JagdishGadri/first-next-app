@@ -3,17 +3,18 @@ export const dynamic = 'force-dynamic';
 import { auth } from '@/auth';
 import { connectToMongoDB } from '@/lib/db';
 import User from '@/models/userModel';
+import { QueryParams } from '@/types/common';
 import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const userSearch = searchParams.get('userSearch') ?? '';
+    const username = searchParams.get(QueryParams.USER) ?? '';
     const session = await auth();
     if (!session) {
       throw new Error('Session not available!');
     }
-    const regex = new RegExp(userSearch, 'i');
+    const regex = new RegExp(username, 'i');
 
     await connectToMongoDB();
     const users = await User.find({

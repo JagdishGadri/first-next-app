@@ -6,13 +6,17 @@ import ChatHeader from '@/components/chat/header';
 
 async function ChatPage({ params }: { params: { recipientUserId: string } }) {
   const currentChatDetails = await getChatTimeLineData(params.recipientUserId);
+
   return (
     currentChatDetails?.recipientUserDetails && (
       <main className="min-w-[70%] flex-grow items-center flex-row p-2 bg-black text-white dark:bg-slate ">
         <header className="flex items-center justify-between">
           <ChatHeader userDetails={currentChatDetails?.recipientUserDetails} />
         </header>
-        <section className="min-h-[88%]  text-gray-400 p-1 mb-2 gap-2 rounded-lg bg-sigMain border border-sigColorBgBorder">
+        <section
+          id="message-container"
+          className=" min-h-[88%] max-h-[88%] overflow-scroll  text-gray-400 p-1 mb-2 gap-2 rounded-lg bg-sigMain border border-sigColorBgBorder"
+        >
           {currentChatDetails?.messages?.length ? (
             currentChatDetails?.messages.map((message) => {
               return (
@@ -20,7 +24,7 @@ async function ChatPage({ params }: { params: { recipientUserId: string } }) {
                   key={message._id.toString()}
                   message={message}
                   recipientUserName={
-                    currentChatDetails?.recipientUserDetails?.fullName
+                    currentChatDetails?.recipientUserDetails?.fullName ?? ''
                   }
                 />
               );

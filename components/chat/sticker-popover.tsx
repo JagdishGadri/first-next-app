@@ -4,6 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { SmilePlus } from 'lucide-react';
 import { sendMessageAction } from '@/lib/actions';
 import Sticker from './sticker';
+import { scrollToEnd } from '@/lib/utils';
 
 const emojis = [
   { src: '/emojis/like.gif', alt: 'Like' },
@@ -30,6 +31,7 @@ function StickerPopover({ receiverId }: { receiverId: string }) {
                 {...emoji}
                 onClick={async () => {
                   await sendMessageAction(receiverId, emoji.src ?? '', 'image');
+                  scrollToEnd('message-container');
                 }}
               />
             ))}

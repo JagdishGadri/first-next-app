@@ -1,8 +1,10 @@
 import mongoose, { Document, Model, Types } from 'mongoose';
+import { IMessageDocument } from './messageModel';
 
 export interface IChat {
   participants: Types.ObjectId[];
-  messages: Types.ObjectId[];
+  // messages: Types.ObjectId[];
+  messages: IMessageDocument[];
 }
 
 export interface IChatDocument extends IChat, Document {

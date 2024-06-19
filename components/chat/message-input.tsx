@@ -2,6 +2,7 @@
 import { sendMessageAction } from '@/lib/actions';
 import React, { useRef, useState } from 'react';
 import StickerPopover from './sticker-popover';
+import { scrollToEnd } from '@/lib/utils';
 
 function Input({ params }: { params: { recipientUserId: string } }) {
   const [messageContent, setMessageContent] = useState<string>('');
@@ -30,6 +31,7 @@ function Input({ params }: { params: { recipientUserId: string } }) {
           onClick={async () => {
             try {
               await sendMessageAction(receiverId, messageContent, 'text');
+              scrollToEnd('message-container');
               if (
                 inputRef.current &&
                 inputRef.current instanceof HTMLInputElement

@@ -30,7 +30,7 @@ async function HomePage() {
                 asChild
                 className="mt-4 bg-black text-white flex items-center rounded-lg gap-2 mx-auto md:mx-0"
               >
-                <Link href="/chat" className="max-w-max">
+                <Link href="/chat?user=" className="max-w-max">
                   <Image
                     src="/logo.svg"
                     width={20}

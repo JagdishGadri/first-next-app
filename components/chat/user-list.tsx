@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import UserCard from './user-card';
 import { IUserDocument } from '@/models/userModel';
 import { useSearchParams } from 'next/navigation';
+import { QueryParams } from '@/types/common';
 
 function ChatUsersList() {
   const [userList, setUserList] = useState<IUserDocument[]>([]);
@@ -11,7 +12,7 @@ function ChatUsersList() {
   const getUsersList = useCallback(async () => {
     try {
       const res = await fetch(
-        `api/users?userSearch=${searchParams.get('userSearch')}`
+        `api/users?user=${searchParams.get(QueryParams.USER) ?? ''}`
       );
       const userList = await res.json();
       setUserList(userList);

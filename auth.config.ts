@@ -27,7 +27,7 @@ export const authConfig = {
       }
 
       if (user && isVisitingAuthPage) {
-        return Response.redirect(new URL('/chat', request.nextUrl));
+        return Response.redirect(new URL(`/chat`, request.nextUrl));
       }
 
       return true;
