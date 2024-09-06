@@ -4,10 +4,12 @@ import Message from '@/components/chat/message';
 import { getChatTimeLineData } from '@/lib/data';
 import ChatHeader from '@/components/chat/header';
 import { auth } from '@/auth';
+import { getTimeString } from '@/lib/utils';
 
 async function ChatPage({ params }: { params: { recipientUserId: string } }) {
   const currentChatDetails = await getChatTimeLineData(params.recipientUserId);
   const session = await auth();
+
   return (
     currentChatDetails?.recipientUserDetails && (
       <main className="min-w-[70%] flex-grow items-center flex-row p-2 bg-black text-white dark:bg-slate ">
@@ -19,15 +21,37 @@ async function ChatPage({ params }: { params: { recipientUserId: string } }) {
           className=" min-h-[88%] max-h-[88%] overflow-scroll  text-gray-400 p-1 mb-2 gap-2 rounded-lg bg-sigMain border border-sigColorBgBorder"
         >
           {currentChatDetails?.messages?.length ? (
-            currentChatDetails?.messages.map((message) => {
+            currentChatDetails?.messages.map((message, i) => {
+              // const isSameSenderAsLastMessage = currentChatDetails?.messages?.[
+              //   i - 1
+              // ]
+              //   ? currentChatDetails?.messages?.[i - 1]?.sender.equals(
+              //       message?.sender
+              //     )
+              //   : true;
+
+              const isSameTimeAsLastMessage =
+                currentChatDetails?.messages?.[i - 1] &&
+                getTimeString(
+                  currentChatDetails?.messages?.[i - 1]?.createdAt
+                ) === getTimeString(message?.createdAt);
               return (
-                <Message
-                  key={message._id.toString()}
-                  message={message}
-                  recipientUserName={
-                    currentChatDetails?.recipientUserDetails?.fullName ?? ''
-                  }
-                />
+                <>
+                  <div className=" flex flex-col text-xl mb-1 mt-2  items-center ">
+                    {/* {!isSameSenderAsLastMessage &&
+                      (message?.sender?.toString() === session?.user._id
+                        ? session?.user?.name
+                        : currentChatDetails?.recipientUserDetails?.fullName)} */}
+                    {!isSameTimeAsLastMessage && (
+                      <div className="text-sm">
+                        {message?.createdAt
+                          ? getTimeString(message.createdAt)
+                          : '-'}
+                      </div>
+                    )}
+                  </div>
+                  <Message key={message._id.toString()} message={message} />
+                </>
               );
             })
           ) : (

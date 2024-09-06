@@ -20,6 +20,7 @@ export const getChatTimeLineData = async (recipientUserId: string) => {
     });
     return {
       messages: chats?.messages,
+
       recipientUserDetails: recipientUser
     };
   } catch (err) {

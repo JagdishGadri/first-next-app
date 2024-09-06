@@ -2,24 +2,19 @@ import { auth } from '@/auth';
 import { IMessageDocument } from '@/models/messageModel';
 import React from 'react';
 import Sticker from './sticker';
-import { getTimeString } from '@/lib/utils';
 
-type Props = { message: IMessageDocument; recipientUserName: string };
+type Props = {
+  message: IMessageDocument;
+};
 
-async function Message({ message, recipientUserName }: Props) {
+async function Message({ message }: Props) {
   const session = await auth();
+  const isCurrentUserSender = message?.sender?.toString() === session?.user._id;
+
   return (
     <>
-      <div className=" flex text-xl mb-1 mt-2 gap-2 items-center">
-        {message?.sender?.toString() === session?.user._id
-          ? session?.user?.name
-          : recipientUserName}
-        <div className="text-sm">
-          {message?.createdAt ? getTimeString(message.createdAt) : '-'}
-        </div>
-      </div>
       <div
-        className={`flex ${message.sender === session?.user._id && 'mb-3'}  `}
+        className={`flex ${isCurrentUserSender ? 'flex-row-reverse' : 'flex-row'} ${message.sender === session?.user._id && 'mb-3'}  `}
       >
         <div
           className={`rounded-full ml-2  w-[5px]  ${message.sender.toString() === session?.user._id ? 'bg-blue-400' : 'bg-pink-400'} `}

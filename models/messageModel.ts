@@ -10,6 +10,7 @@ interface IMessage {
 }
 
 export interface IMessageDocument extends IMessage, Document {
+  _id: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }

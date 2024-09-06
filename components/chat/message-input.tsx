@@ -1,5 +1,5 @@
 'use client';
-import { sendMessageAction } from '@/lib/actions';
+import revalidateChatTimeLine, { sendMessageAction } from '@/lib/actions';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import StickerPopover from './sticker-popover';
 import { scrollToEnd } from '@/lib/utils';
@@ -36,11 +36,7 @@ function Input({
       }
 
       const parsedMessage = JSON.parse(data);
-      await sendMessageAction(
-        parsedMessage.receiverId,
-        parsedMessage.content,
-        'text'
-      );
+      await revalidateChatTimeLine(parsedMessage?.receiverId);
     };
 
     ws.current.onerror = (error) => {
@@ -65,7 +61,6 @@ function Input({
     try {
       if (inputRef.current) {
         await sendMessageAction(recipientId, inputRef.current.value, 'text');
-        scrollToEnd('message-container');
         if (ws.current) {
           ws.current.send(
             JSON.stringify({
@@ -79,6 +74,7 @@ function Input({
         if (inputRef.current && inputRef.current instanceof HTMLInputElement) {
           inputRef.current.value = '';
         }
+        scrollToEnd('message-container');
       }
     } catch (err) {
       throw err;
