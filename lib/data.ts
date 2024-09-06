@@ -8,7 +8,7 @@ export const getChatTimeLineData = async (recipientUserId: string) => {
     await connectToMongoDB();
     const session = await auth();
     const chats: IChatDocument | null = await Chat.findOne({
-      participants: [session?.user._id, recipientUserId]
+      participants: { $all: [session?.user._id, recipientUserId] }
     })
       .populate({
         path: 'messages'

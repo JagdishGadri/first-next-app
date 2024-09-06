@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start:server": "node server.cjs"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.4",
@@ -27,7 +28,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "ws": "^8.17.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",

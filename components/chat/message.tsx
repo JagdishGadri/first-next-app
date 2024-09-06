@@ -22,7 +22,7 @@ async function Message({ message, recipientUserName }: Props) {
         className={`flex ${message.sender === session?.user._id && 'mb-3'}  `}
       >
         <div
-          className={`rounded-full ml-2  w-[10px]  ${message.sender.toString() === session?.user._id ? 'bg-blue-400' : 'bg-pink-400'} `}
+          className={`rounded-full ml-2  w-[5px]  ${message.sender.toString() === session?.user._id ? 'bg-blue-400' : 'bg-pink-400'} `}
         ></div>
         <span className="ml-1 text-md">
           {message.messageType === 'text' ? (

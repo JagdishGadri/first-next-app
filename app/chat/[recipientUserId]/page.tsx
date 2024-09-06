@@ -3,10 +3,11 @@ import Input from '@/components/chat/message-input';
 import Message from '@/components/chat/message';
 import { getChatTimeLineData } from '@/lib/data';
 import ChatHeader from '@/components/chat/header';
+import { auth } from '@/auth';
 
 async function ChatPage({ params }: { params: { recipientUserId: string } }) {
   const currentChatDetails = await getChatTimeLineData(params.recipientUserId);
-
+  const session = await auth();
   return (
     currentChatDetails?.recipientUserDetails && (
       <main className="min-w-[70%] flex-grow items-center flex-row p-2 bg-black text-white dark:bg-slate ">
@@ -34,7 +35,7 @@ async function ChatPage({ params }: { params: { recipientUserId: string } }) {
           )}
         </section>
         <footer className="flex items-center justify-center">
-          <Input params={params} />
+          <Input params={params} senderId={session?.user?._id ?? ''} />
         </footer>
       </main>
     )

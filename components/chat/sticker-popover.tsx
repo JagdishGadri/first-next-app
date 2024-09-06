@@ -30,8 +30,26 @@ function StickerPopover({ receiverId }: { receiverId: string }) {
                 key={emoji.src}
                 {...emoji}
                 onClick={async () => {
-                  await sendMessageAction(receiverId, emoji.src ?? '', 'image');
-                  scrollToEnd('message-container');
+                  try {
+                    await sendMessageAction(
+                      receiverId,
+                      emoji.src ?? '',
+                      'image'
+                    );
+                    scrollToEnd('message-container');
+                    // if (ws.current) {
+                    //   ws.current.send(
+                    //     JSON.stringify({
+                    //       type: 'message',
+                    //       senderId: senderId,
+                    //       recepientId: recipientId,
+                    //       content: inputRef.current.value
+                    //     })
+                    //   );
+                    // }
+                  } catch (err) {
+                    throw err;
+                  }
                 }}
               />
             ))}

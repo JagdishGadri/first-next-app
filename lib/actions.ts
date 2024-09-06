@@ -14,6 +14,10 @@ export async function logoutAction() {
   await signOut();
 }
 
+export default async function revalidateChatTimeLine(recipientId: string) {
+  revalidatePath(`/chat/${recipientId}`, 'page');
+}
+
 export const sendMessageAction = async (
   receiverId: string,
   content: string,
