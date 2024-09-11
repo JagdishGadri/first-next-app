@@ -61,6 +61,7 @@ function Input({
     try {
       if (inputRef.current) {
         await sendMessageAction(recipientId, inputRef.current.value, 'text');
+        console.log('ws', ws);
         if (ws.current) {
           ws.current.send(
             JSON.stringify({
