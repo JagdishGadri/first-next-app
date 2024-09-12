@@ -17,7 +17,7 @@ function Input({
   const ws = useRef<WebSocket | null>(null);
   const [isNewMessageReceived, setIsNewMessageReceived] = useState(false);
   const connectToWebSocket = useCallback(async () => {
-    ws.current = new WebSocket(process.env.WS_URL);
+    ws.current = new WebSocket(process.env.NEXT_PUBLIC_WS_URL);
     ws.current.onopen = () => {
       if (ws.current)
         ws.current.send(
