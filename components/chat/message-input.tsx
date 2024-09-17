@@ -16,10 +16,12 @@ function Input({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const ws = useRef<WebSocket | null>(null);
   const [isNewMessageReceived, setIsNewMessageReceived] = useState(false);
+
   const connectToWebSocket = useCallback(async () => {
     ws.current = new WebSocket(
       process.env.NEXT_PUBLIC_WS_URL ?? 'wss://know-snap-app.onrender.com'
     );
+
     ws.current.onopen = () => {
       if (ws.current)
         ws.current.send(
@@ -62,7 +64,6 @@ function Input({
     try {
       if (inputRef.current) {
         await sendMessageAction(recipientId, inputRef.current.value, 'text');
-        console.log('ws', ws);
         if (ws.current) {
           ws.current.send(
             JSON.stringify({

@@ -59,7 +59,7 @@ export const scrollToEnd: (elementId: string, extraHeight?: number) => void = (
   }
 };
 
-export function getTimeString(timeStr: Date) {
+export function getDateString(timeStr: Date) {
   // Create a Date object from the time string
   const time = new Date(timeStr);
 
@@ -71,25 +71,21 @@ export function getTimeString(timeStr: Date) {
   const oneDay = 1000 * 60 * 60 * 24;
 
   if (diff < oneDay) {
-    return (
-      'Today at ' +
-      time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    );
+    return 'Today';
   } else if (diff === oneDay) {
-    return (
-      'Yesterday at ' +
-      time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    );
+    return 'Yesterday';
   } else {
     // Format the date if not today or yesterday
-    return (
-      time.toLocaleDateString([], {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      }) +
-      ' at ' +
-      time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    );
+    return time.toLocaleDateString([], {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
   }
+}
+
+export function getTimeString(timeStr: Date) {
+  const time = new Date(timeStr);
+
+  return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }

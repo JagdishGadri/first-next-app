@@ -1,14 +1,12 @@
 'use client';
-import { Callback, debounce } from '@/lib/utils';
 import { QueryParams } from '@/types/common';
 import { SearchIcon } from 'lucide-react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 
 function UserSearch() {
   const router = useRouter();
   const pathname = usePathname();
-  const [searchQuery, setSearchQuery] = useState<string | null>('');
   const searchParams = useSearchParams();
 
   const createQueryString = useCallback(
@@ -21,17 +19,9 @@ function UserSearch() {
     [searchParams]
   );
 
-  useEffect(() => {
-    setSearchQuery(searchParams?.get(QueryParams.USER));
-  }, [searchParams]);
-
-  const searchHandler: Callback = (searchQuery: string = '') => {
-    router.push(
-      pathname + '?' + createQueryString(QueryParams.USER, searchQuery)
-    );
+  const searchHandler = (value: string = '') => {
+    router.push(pathname + '?' + createQueryString(QueryParams.USER, value));
   };
-
-  const searchDebounce = debounce(searchHandler, 2000);
 
   return (
     <div className="p-4">
@@ -41,10 +31,8 @@ function UserSearch() {
           className="bg-transparent border-none text-white placeholder-gray-400 focus:outline-none"
           placeholder="Search"
           type="text"
-          value={searchQuery}
           onChange={(e) => {
-            setSearchQuery(e.target.value);
-            searchDebounce(e.target.value);
+            searchHandler(e.target.value);
           }}
         />
       </div>
