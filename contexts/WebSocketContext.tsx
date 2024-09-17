@@ -1,90 +1,93 @@
-// contexts/WebSocketContext.tsx
+'use client';
+import React, {
+  createContext,
+  useEffect,
+  useContext,
+  ReactNode,
+  useRef,
+  useCallback,
+  useState
+} from 'react';
 
-// import React, {
-//   createContext,
-//   useEffect,
-//   useContext,
-//   ReactNode,
-//   useRef,
-//   useCallback
-// } from 'react';
+interface WebSocketMessage {
+  receiverId: string;
+  content: string;
+}
+interface WebSocketContextType {
+  socket: WebSocket | null;
+  messages: WebSocketMessage[];
+}
 
-// interface WebSocketContextType {
-//   socket: WebSocket | null;
-//   messages: string[];
-// }
+const WebSocketContext = createContext<WebSocketContextType | undefined>(
+  undefined
+);
 
-// const WebSocketContext = createContext<WebSocketContextType | undefined>(
-//   undefined
-// );
+interface WebSocketProviderProps {
+  children: ReactNode;
+  senderId: string | undefined;
+}
 
-// interface WebSocketProviderProps {
-//   children: ReactNode;
-//   senderId: string;
-// }
+export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
+  children,
+  senderId
+}) => {
+  const ws = useRef<WebSocket | null>(null);
+  const [messages, setMessages] = useState<WebSocketMessage[]>([]);
 
-// export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
-//   senderId,
-//   children
-// }) => {
-//   const ws = useRef<WebSocket | null>(null);
+  const connectToWebSocket = useCallback(async () => {
+    if (process.env.NEXT_PUBLIC_WS_URL) {
+      ws.current = new WebSocket(process.env.NEXT_PUBLIC_WS_URL);
+      ws.current.onopen = () => {
+        if (ws.current)
+          ws.current.send(
+            JSON.stringify({
+              type: 'connection',
+              connectedUserId: senderId
+            })
+          );
+      };
 
-//   const connectToWebSocket = useCallback(async () => {
-//     ws.current = new WebSocket('ws://localhost:8080');
+      ws.current.onmessage = async (event) => {
+        const data = event.data;
+        if (data) {
+          const parsedMessage: WebSocketMessage = JSON.parse(data);
+          setMessages((prevMessages) => [...prevMessages, parsedMessage]);
+        }
+      };
 
-//     ws.current.onopen = () => {
-//       console.log('Connected to the WebSocket server');
-//       if (ws.current)
-//         ws.current.send(
-//           JSON.stringify({
-//             type: 'connection',
-//             connectedUserId: senderId
-//           })
-//         );
-//     };
+      ws.current.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
 
-//     ws.current.onmessage = async (event) => {
-//       const data = event.data;
-//       if (event.data) {
-//         setIsNewMessageReceived(true);
-//       }
+      ws.current.onclose = () => {
+        // eslint-disable-next-line no-console
+        console.log('Disconnected from the WebSocket server');
+      };
+    }
+  }, [senderId]);
 
-//       const parsedMessage = JSON.parse(data);
-//       await sendMessageAction(
-//         parsedMessage.receiverId,
-//         parsedMessage.content,
-//         'text'
-//       );
-//     };
+  useEffect(() => {
+    connectToWebSocket();
+    return () => {
+      if (ws.current) {
+        ws.current.close();
+      }
+    };
+  }, [connectToWebSocket]);
 
-//     ws.current.onerror = (error) => {
-//       console.error('WebSocket error:', error);
-//     };
+  return (
+    <WebSocketContext.Provider
+      value={{ socket: ws.current, messages: messages }}
+    >
+      {children}
+    </WebSocketContext.Provider>
+  );
+};
 
-//     ws.current.onclose = () => {
-//       console.log('Disconnected from the WebSocket server');
-//     };
-//   }, [senderId]);
-//   useEffect(() => {
-//     connectToWebSocket();
-//     return () => {
-//       if (ws.current) {
-//         ws.current.close();
-//       }
-//     };
-//   }, []);
-
-//   return (
-//     <WebSocketContext.Provider value={{ socket, messages }}>
-//       {children}
-//     </WebSocketContext.Provider>
-//   );
-// };
-
-// export const useWebSocket = (): WebSocketContextType => {
-//   const context = useContext(WebSocketContext);
-//   if (context === undefined) {
-//     throw new Error('useWebSocket must be used within a WebSocketProvider');
-//   }
-//   return context;
-// };
+export const useWebSocket = (): WebSocketContextType => {
+  const context = useContext(WebSocketContext);
+  if (context === undefined) {
+    throw new Error('useWebSocket must be used within a WebSocketProvider');
+  }
+  return context;
+};

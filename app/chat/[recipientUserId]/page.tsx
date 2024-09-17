@@ -9,6 +9,7 @@ import { getDateString, getTimeString } from '@/lib/utils';
 async function ChatPage({ params }: { params: { recipientUserId: string } }) {
   const currentChatDetails = await getChatTimeLineData(params.recipientUserId);
   const session = await auth();
+
   return (
     currentChatDetails?.recipientUserDetails && (
       <main className="min-w-[70%] flex-grow items-center flex-row p-2 bg-black text-white dark:bg-slate ">

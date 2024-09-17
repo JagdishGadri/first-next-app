@@ -1,10 +1,11 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { SmilePlus } from 'lucide-react';
-import { sendMessageAction } from '@/lib/actions';
+import revalidateChatTimeLine, { sendMessageAction } from '@/lib/actions';
 import Sticker from './sticker';
 import { scrollToEnd } from '@/lib/utils';
+import { useWebSocket } from '@/contexts/WebSocketContext';
 
 const emojis = [
   { src: '/emojis/like.gif', alt: 'Like' },
@@ -16,7 +17,19 @@ const emojis = [
   { src: '/emojis/love.gif', alt: 'Love' }
 ];
 
-function StickerPopover({ receiverId }: { receiverId: string }) {
+function StickerPopover({
+  receiverId,
+  senderId
+}: {
+  receiverId: string;
+  senderId: string;
+}) {
+  const { socket, messages } = useWebSocket();
+  useEffect(() => {
+    if (messages) {
+      revalidateChatTimeLine(messages?.[messages?.length - 1]?.receiverId);
+    }
+  }, [messages]);
   return (
     <>
       <Popover>
@@ -37,16 +50,17 @@ function StickerPopover({ receiverId }: { receiverId: string }) {
                       'image'
                     );
                     scrollToEnd('message-container');
-                    // if (ws.current) {
-                    //   ws.current.send(
-                    //     JSON.stringify({
-                    //       type: 'message',
-                    //       senderId: senderId,
-                    //       recepientId: recipientId,
-                    //       content: inputRef.current.value
-                    //     })
-                    //   );
-                    // }
+                    if (socket) {
+                      // not the actual image but just to trigger refetch in receiver's UI
+                      socket.send(
+                        JSON.stringify({
+                          type: 'message',
+                          senderId: senderId,
+                          recepientId: receiverId,
+                          content: 'new-image'
+                        })
+                      );
+                    }
                   } catch (err) {
                     throw err;
                   }

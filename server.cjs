@@ -10,12 +10,7 @@ wss.on('connection', (ws) => {
     if (parsedMessage?.type === 'connection') {
       clients.set(parsedMessage.connectedUserId, ws);
     }
-    // // Broadcast the message to all connected clients
-    // wss.clients.forEach((client) => {
-    //   if (client !== ws && client.readyState === WebSocket.OPEN && client) {
-    //     client.send(message);
-    //   }
-    // });
+
     if (parsedMessage.recepientId) {
       const targetClient = clients.get(parsedMessage.recepientId);
       if (targetClient) {
